@@ -10,13 +10,15 @@
                 $row = $result->fetch_assoc();
                 $keywords = $row["keywords"];
                 while($row=$result->fetch_assoc()){
-                    if(strpos($keywords," ".$row["keywords"]." ")===false){
-                        $keywords=$keywords.", ".$row["keywords"];
+                    foreach (explode(", ",$row["keywords"]) as $key){
+                        if(strpos($keywords,$key)==false){
+                            $keywords=$keywords.", ".$key;
+                        }
                     }
                 }
                 
                 foreach (explode(", ",$keywords) as $key){
-                    str_replace(" ","_",$key);
+                    $key=str_replace(" ","_",$key);
                     echo "<li><a href='#' data-filter='.".$key."' >".$key."</a></li>";
                     
                 }
@@ -33,13 +35,13 @@
                     while($row = $result->fetch_assoc()){
                         $str="";
                         foreach(explode(", ",$row["keywords"]) as $key){
-                            str_replace(" ","_",$key);
+                            $key = str_replace(" ","_",$key);
                             $str=$str." ".$key;
                         }          
                         
                         
                         echo "<div class=' Portfolio-box ".$str."'>\n";
-                        echo "<a href='./viewproduct?id=".$row["id"]."'>";
+                        echo "<a href='./viewproduct.php?id=".$row["id"]."'>";
                         echo "<img style='width:50%' src = '".$row["imgUrl"]."'>\n";
                         echo "</a>";
                         echo "<h3>".$row["name"]."</h3>\n";    

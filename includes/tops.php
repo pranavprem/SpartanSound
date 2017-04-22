@@ -62,11 +62,7 @@
                     }
                     else{
                         echo "You have not viewed any products";
-                        echo "<table>";
-                        echo "<tr>";
-                        echo "<th>Name</th>";
-                        echo "<th>Hits</th>";
-                        echo "</tr>";   
+                          
                     }
                     echo "</table>";
                 ?>
