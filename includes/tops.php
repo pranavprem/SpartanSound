@@ -14,7 +14,7 @@
                 for($i=0; $i<5; $i++){
                     $row = $results->fetch_assoc();
                     echo "<tr>";
-                    echo "<td><a href='./viewproduct?id=".$row["id"]."'>".$row["name"]."</a></td>";
+                    echo "<td><a href='./viewproduct.php?id=".$row["id"]."'>".$row["name"]."</a></td>";
                     echo "<td>".$row["hits"]."</td>";
                     echo "</tr>";
                 }
@@ -53,7 +53,7 @@
                     $result = $conn->query("SELECT * FROM products where id = ".$maxid.";");
                     $row = $result->fetch_assoc();
                     echo "<tr>";
-                    echo "<td><a href='./viewproduct?id=".$row["id"]."'>".$row["name"]."</a></td>";
+                    echo "<td><a href='./viewproduct.php?id=".$row["id"]."'>".$row["name"]."</a></td>";
                     echo "<td>".$max."</td>";
                     echo "</tr>";
                     unset($heatmap[$maxid]);    
@@ -84,7 +84,7 @@
                             $result = $conn->query("SELECT * FROM products where id = ".$hits[$i].";");
                             $row = $result->fetch_assoc();
                             echo "<tr>";
-                            echo "<td><a href='./viewproduct?id=".$row["id"]."'>".$row["name"]."</a></td>";
+                            echo "<td><a href='./viewproduct.php?id=".$row["id"]."'>".$row["name"]."</a></td>";
                             echo "<td>".$row["description"]."</td>";
                             echo "</tr>";
                             array_push($viewed,$hits[$i]);
