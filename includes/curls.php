@@ -19,6 +19,8 @@ curl_setopt($curl_handle, CURLOPT_URL, "http://hireharry.com/php/userlist/");
 $contents = $contents.",".curl_exec($curl_handle);
 curl_setopt($curl_handle, CURLOPT_URL, "http://helloparag.com/flyby/createDBConn.php");
 $contents = $contents.",".curl_exec($curl_handle);
+curl_setopt($curl_handle, CURLOPT_URL, "http://arunram.in/valarshopoholics/displayusers.php");
+$contents = $contents.",".curl_exec($curl_handle);
 
 #echo "<br/>";
 curl_close($curl_handle);
