@@ -1,9 +1,10 @@
-#All Lab work for CMPE 272 under Prof Richard Sinn at San Jose State University 
+# All Lab work for CMPE 272 under Prof Richard Sinn at San Jose State University 
 
 Website at: http://www.pranavprem.com/spartansound
 
-#Homework - Hosting/Web Programming Environment Setup
+# Homework - Hosting/Web Programming Environment Setup
 
+# Lab 0
 Description
 
 In this homework, you have to setup your own web prorgramming environment. The general goal is that we want you to setup an environment where you can reuse after school (say when you start your own company). Everything you learn from all the setups should be skills that will help you in and outside of school setting. Here are the requirements:
@@ -26,7 +27,7 @@ Where to Setup
 You have the flexiblity to decide on where to setup the hosting and web programming environment. Different person will have different priorities (price, location, quality, reputation, etc.).
 
 
-#Lab: Create your first Web Application - Individual Homework
+# Lab 1: Create your first Web Application - Individual Homework
 
  
 
@@ -51,14 +52,11 @@ Research into web site creation tools that can help you.
 The contacts must be stored in text file(s) and use php to read into the web site.
  
 
-Grading
-
-Send the company website link AND the php code that read in the contacts to coolprofsinn@gmail.com for grading by end of Wed.
 
 
 
 
-#Lab: Secure Section Creation- Individual Homework
+# Lab 2: Secure Section Creation- Individual Homework
 
  
 
@@ -72,13 +70,10 @@ The secure section requires login by an administrator. You can use the id "admin
 Use the userid and password authentication method discussed in class to implement the login process.
  
 
-Grading
-
-Send the company website link AND the php code to coolprofsinn@gmail.com for grading by end of Wed.
 
 
 
-#Lab: User Creation and Searching with Database - Individual Homework
+# Lab 3: User Creation and Searching with Database - Individual Homework
 
  
 
@@ -95,13 +90,10 @@ User search form allowing search by names, email or phone numbers.
 Create at least 20 users for your company.
  
 
-Grading
-
-Send the company website link AND the php code to coolprofsinn@gmail.com for grading by end of Wed.
 
 
 
-#Lab: Tracking with Web Cookies - Individual Homework
+# Lab 4: Tracking with Web Cookies - Individual Homework
 
  
 
@@ -119,8 +111,3 @@ Extra Credit
 
 Can you use web cookies to keep track of the five most visited products?
 Add a link to show five most visited products to get extra credit.
- 
-
-Grading
-
-Send the company website link AND the php code to coolprofsinn@gmail.com for grading by end of Wed.
