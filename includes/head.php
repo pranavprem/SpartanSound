@@ -15,8 +15,6 @@
 <link href="css/responsive.css" rel="stylesheet" type="text/css">
 <link href="css/animate.css" rel="stylesheet" type="text/css">
 
-<!--[if IE]><style type="text/css">.pie {behavior:url(PIE.htc);}</style><![endif]-->
-
 <script type="text/javascript" src="js/jquery.1.8.3.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/jquery-scrolltofixed.js"></script>
@@ -24,4 +22,3 @@
 <script type="text/javascript" src="js/jquery.isotope.js"></script>
 <script type="text/javascript" src="js/wow.js"></script>
 <script type="text/javascript" src="js/classie.js"></script>
-<script src="contactform/contactform.js"></script>

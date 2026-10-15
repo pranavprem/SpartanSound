@@ -1,22 +1,26 @@
-<?php require "dbconnect.php"?>
 <?php
-     ob_start();
-    session_start();
-     if (isset($_POST["Login"]) && !empty($_POST["Username"]) && !empty($_POST["Password"])){
-          $userfile = fopen("../txt/credentials.txt", "r");
-            while(($line=fgets($userfile))!==false){
-                    $line = rtrim($line,"\r\n");
-                    $user = explode(",", $line);
-                    if ($_POST["Username"]==$user[0]  && $_POST["Password"]==$user[1]){
-                        $_SESSION["user"] = $_POST["Username"];
-                        fclose($userfile);
-                        header("location: ../secure.php");
-                        exit;
-                    }
-                }
-     }
-    else
-    {
-        header("location: ../index.php");
-    }
-?>
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/lib.php';
+spartan_session_start();
+
+$username = (string) ($_POST['Username'] ?? '');
+$password = (string) ($_POST['Password'] ?? '');
+$posted = isset($_POST['Login']) && $username !== '' && $password !== '';
+$credentials = spartan_root() . '/txt/credentials.txt';
+
+if ($posted && spartan_credentials_match($credentials, $username, $password)) {
+    session_regenerate_id(true);
+    $_SESSION['user'] = $username;
+    header('Location: ../secure.php');
+    exit;
+}
+
+if (!$posted) {
+    header('Location: ../index.php');
+    exit;
+}
+
+header('Location: ../index.php?login=failed');
+exit;

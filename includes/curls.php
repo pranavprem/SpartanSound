@@ -1,36 +1,31 @@
-<html>
-    
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/dbconnect.php';
+
+$names = spartan_user_first_names($conn);
+foreach (spartan_curl_texts(spartan_peer_urls()) as $body) {
+    foreach (spartan_peer_names($body) as $name) {
+        $names[] = $name;
+    }
+}
+?>
+<!doctype html>
+<html lang="en">
     <head>
-<?php require "head.php"?>
+<base href="../">
+<?php require __DIR__ . "/head.php" ?>
     </head>
 <body>
 <section class="main-section alabaster" id="tops">
 	<div class="container fullsize">
 <?php
-
-$curl_handle = curl_init();
-curl_setopt($curl_handle, CURLOPT_URL, "http://www.pranavprem.com/spartansound/includes/expose.php");
-curl_setopt($curl_handle, CURLOPT_HEADER, 0);
-curl_setopt($curl_handle,CURLOPT_RETURNTRANSFER,true);
-$contents = curl_exec($curl_handle);
-curl_setopt($curl_handle, CURLOPT_URL, "http://divyaatv.com/zyro/fetchuser.php");
-$contents = $contents.",".curl_exec($curl_handle);
-curl_setopt($curl_handle, CURLOPT_URL, "http://hireharry.com/php/userlist/");
-$contents = $contents.",".curl_exec($curl_handle);
-curl_setopt($curl_handle, CURLOPT_URL, "http://helloparag.com/flyby/createDBConn.php");
-$contents = $contents.",".curl_exec($curl_handle);
-curl_setopt($curl_handle, CURLOPT_URL, "http://arunram.in/valarshopoholics/displayusers.php");
-$contents = $contents.",".curl_exec($curl_handle);
-
-#echo "<br/>";
-curl_close($curl_handle);
-
-foreach (explode(",",$contents) as $content) {
-    echo $content."<br/>";
+foreach ($names as $name) {
+    echo spartan_e($name) . "<br/>\n";
 }
-
 ?>
-        
+
     </div>
 </section>
 </body>

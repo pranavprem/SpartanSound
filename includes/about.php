@@ -6,7 +6,7 @@
             </figure>
         	<div class="col-lg-7 col-sm-8 featured-work">
             	<h2>Music Is The System</h2>
-            	<P class="padding-b">Can't live withour music? Neither can we. Welcome to SpartanSound!</P>
+            	<P class="padding-b">Can't live without music? Neither can we. Welcome to SpartanSound!</P>
             	<div class="featured-box">
                 	<div class="featured-box-col2 wow fadeInRight delay-02s">
                         <h3>Find brand new music!</h3>

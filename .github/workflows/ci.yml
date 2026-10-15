@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mariadb:
+        image: mariadb:11.4
+        env:
+          MARIADB_ROOT_PASSWORD: root
+          MARIADB_DATABASE: spartansound
+          MARIADB_USER: spartanuser
+          MARIADB_PASSWORD: ci-password
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="healthcheck.sh --connect --innodb_initialized"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: spartanuser
+      DB_PASSWORD: ci-password
+      DB_NAME: spartansound
+      DB_CONNECT_RETRIES: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.5"
+          extensions: mysqli, curl
+          coverage: none
+      - name: Syntax check
+        run: find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l
+      - name: Install dev tools
+        run: composer install --no-interaction --prefer-dist
+      - name: Lint
+        run: composer lint
+      - name: Unit tests
+        run: composer test
+      - name: Load schema
+        run: php tests/load-schema.php
+      - name: Integration tests
+        run: composer test:integration

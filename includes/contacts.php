@@ -2,18 +2,23 @@
 	<div class="container fullsize">
         <h2>Contact  &nbsp; the &nbsp; Dev</h2>
     <section class="main-section contact" id="contact">
-	
+
         	<div>
-            	<?php 
-                $contacts = fopen("txt/contacts.txt", "r");
-                while(($line=fgets($contacts))!==false){
-                    echo $line;
-                    echo "<br/>";
+            	<?php
+                $contactFile = spartan_root() . '/txt/contacts.txt';
+                $lines = is_file($contactFile) ? file($contactFile) : false;
+                if ($lines === false) {
+                    echo "Contacts are unavailable.";
+                } else {
+                    foreach ($lines as $line) {
+                        echo spartan_e(rtrim($line, "\r\n"));
+                        echo "<br/>\n";
+                    }
                 }
-                fclose($contacts)
                 ?>
             </div>
-        	
-        
+
+
 </section>
 </div>
+</section>

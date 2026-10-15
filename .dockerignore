@@ -1,0 +1,8 @@
+.git
+vendor
+tests
+audio
+img
+fonts
+*.md
+.env

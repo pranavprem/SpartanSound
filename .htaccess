@@ -1,0 +1,6 @@
+Options -Indexes
+
+# The built-in server uses router.php for the same paths. Apache reads this file.
+RedirectMatch 404 ^/(?:txt|sql|tests|vendor)(?:/|$)
+RedirectMatch 404 ^/\.
+RedirectMatch 404 ^/(?:composer\.(?:json|lock)|Dockerfile|docker-compose\.yml|AGENTS\.md|CLAUDE\.md|phpcs\.xml\.dist)$
