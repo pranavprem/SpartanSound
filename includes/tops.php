@@ -9,97 +9,81 @@
                         <th>Hits</th>
                     </tr>
                 <?php
-                $sql = "SELECT * FROM products ORDER BY hits DESC";
-                $results = $conn->query($sql);
-                for($i=0; $i<5; $i++){
-                    $row = $results->fetch_assoc();
+                $topProducts = spartan_top_products($conn, 5);
+                if ($topProducts === []) {
+                    echo "<tr><td colspan='2'>No products yet.</td></tr>";
+                }
+                foreach ($topProducts as $row) {
                     echo "<tr>";
-                    echo "<td><a href='./viewproduct.php?id=".$row["id"]."'>".$row["name"]."</a></td>";
-                    echo "<td>".$row["hits"]."</td>";
+                    echo "<td><a href='./viewproduct.php?id=" . (int) $row['id'] . "'>" . spartan_e((string) $row['name']) . "</a></td>";
+                    echo "<td>" . spartan_e((string) $row['hits']) . "</td>";
                     echo "</tr>";
                 }
-                
                 ?>
                 </table>
-                
+
             </div>
         	<div class="col-lg-7 col-sm-8 wow fadeInRight">
             	<h2>Your top viewed</h2>
                 <?php
-                    if(isset($_COOKIE["lastids"])){
+                    $cookieIds = isset($_COOKIE['lastids']) ? (string) $_COOKIE['lastids'] : '';
+                    $ranked = $cookieIds === '' ? [] : spartan_top_viewed_ids($cookieIds, 5);
+                    $rankedRows = spartan_products_by_ids($conn, array_column($ranked, 'id'));
+                    if ($ranked === []) {
+                        echo "You have not viewed any products";
+                    } else {
                         echo "<table>";
                         echo "<tr>";
                         echo "<th>Name</th>";
-                        echo "<th>Hits</th>";
-                        echo "</tr>";        
-                     $heatmap=array();
-                     foreach (explode(",",$_COOKIE["lastids"]) as $id){
-                         if(isset($heatmap[$id])){
-                             $heatmap[$id] = $heatmap[$id] + 1;
-                         }
-                         else {
-                             $heatmap[$id] = 1;
-                         }
-                     }
-                    for($i=0;$i<5;$i++){
-                     $max=0;
-                     $maxid=0;
-                    foreach ($heatmap as $key => $value){
-                         if($value>$max){
-                             $max = $value;
-                             $maxid = $key;
-                         }
-                     }
-                    $result = $conn->query("SELECT * FROM products where id = ".$maxid.";");
-                    $row = $result->fetch_assoc();
-                    echo "<tr>";
-                    echo "<td><a href='./viewproduct.php?id=".$row["id"]."'>".$row["name"]."</a></td>";
-                    echo "<td>".$max."</td>";
-                    echo "</tr>";
-                    unset($heatmap[$maxid]);    
+                        echo "<th>Your views</th>";
+                        echo "</tr>";
+                        foreach ($ranked as $entry) {
+                            if (!isset($rankedRows[$entry['id']])) {
+                                continue;
+                            }
+                            $row = $rankedRows[$entry['id']];
+                            echo "<tr>";
+                            echo "<td><a href='./viewproduct.php?id=" . (int) $row['id'] . "'>" . spartan_e((string) $row['name']) . "</a></td>";
+                            echo "<td>" . (int) $entry['views'] . "</td>";
+                            echo "</tr>";
+                        }
+                        echo "</table>";
                     }
-                     
-                    }
-                    else{
-                        echo "You have not viewed any products";
-                          
-                    }
-                    echo "</table>";
                 ?>
-                
+
             </div>
         	<div class="col-lg-7 col-sm-12 wow fadeInRight">
             	<h2>Your Last 5 viewed</h2>
-                
+
                 <?php
-                    if(isset($_COOKIE["lastids"])){
+                    $recent = $cookieIds === '' ? [] : spartan_recent_ids($cookieIds, 5);
+                    $recentRows = spartan_products_by_ids($conn, $recent);
+                    if ($recent === []) {
+                        echo "You have not viewed any products";
+                    } else {
                         echo "<table>";
                         echo "<tr>";
                         echo "<th>Name</th>";
                         echo "<th>Description</th>";
-                        echo "</tr>"; 
-                        $hits = explode(",",$_COOKIE["lastids"]);
-                        $viewed = array();
-                        for($i=0; $i<5 and $i<sizeof($hits); $i++){
-                            $result = $conn->query("SELECT * FROM products where id = ".$hits[$i].";");
-                            $row = $result->fetch_assoc();
+                        echo "</tr>";
+                        foreach ($recent as $recentId) {
+                            if (!isset($recentRows[$recentId])) {
+                                continue;
+                            }
+                            $row = $recentRows[$recentId];
                             echo "<tr>";
-                            echo "<td><a href='./viewproduct.php?id=".$row["id"]."'>".$row["name"]."</a></td>";
-                            echo "<td>".$row["description"]."</td>";
+                            echo "<td><a href='./viewproduct.php?id=" . (int) $row['id'] . "'>" . spartan_e((string) $row['name']) . "</a></td>";
+                            echo "<td>" . spartan_e((string) $row['description']) . "</td>";
                             echo "</tr>";
-                            array_push($viewed,$hits[$i]);
                         }
                         echo "</table>";
                     }
-                    else{
-                        echo "You have not viewed any products";
-                    }
                 ?>
-                
+
             </div>
         </div>
 	</div>
-   
-    
-    
+
+
+
 </section>

@@ -1,30 +1,28 @@
+<?php
+
+require_once __DIR__ . '/includes/dbconnect.php';
+?>
 <!doctype html>
-<html>
+<html lang="en">
 <!-- This website is built modifying styles and themes originally created by bootstrapmade-->
 
     <head>
-        <?php require "includes/head.php" ?>
+        <?php require __DIR__ . "/includes/head.php" ?>
         <title>SpartanSound</title>
-        <?php ob_start(); ?>
     </head>
     <body>
-        <?php require "includes/dbconnect.php" ?>
-        <?php require "includes/newuser.php" ?>
-        <?php require "includes/home.php" ?>
-        <?php require "includes/navbar.php" ?>
-        <?php require "includes/tops.php" ?>
-        <?php require "includes/about.php" ?>
-        <?php require "includes/services.php" ?>
-        <?php require "includes/products.php" ?>
-        <?php require "includes/news.php" ?>
-        <?php require "includes/contacts.php" ?>
-        <?php require "includes/users.php" ?>
-        <?php require "includes/login.php" ?>
-        <?php require "includes/searchuser.php" ?>
-        
-
-
-
+        <?php require __DIR__ . "/includes/newuser.php" ?>
+        <?php require __DIR__ . "/includes/home.php" ?>
+        <?php require __DIR__ . "/includes/navbar.php" ?>
+        <?php require __DIR__ . "/includes/tops.php" ?>
+        <?php require __DIR__ . "/includes/about.php" ?>
+        <?php require __DIR__ . "/includes/services.php" ?>
+        <?php require __DIR__ . "/includes/products.php" ?>
+        <?php require __DIR__ . "/includes/news.php" ?>
+        <?php require __DIR__ . "/includes/contacts.php" ?>
+        <?php require __DIR__ . "/includes/users.php" ?>
+        <?php require __DIR__ . "/includes/login.php" ?>
+        <?php require __DIR__ . "/includes/searchuser.php" ?>
 
 <footer class="footer">
     <div class="container">
@@ -40,10 +38,10 @@
         $('#test').scrollToFixed();
         $('.res-nav_click').click(function(){
             $('.main-nav').slideToggle();
-            return false    
-            
+            return false
+
         });
-        
+
     });
 </script>
 
@@ -60,12 +58,23 @@
 
 <script type="text/javascript">
 	$(window).load(function(){
-		
+
 		$('.main-nav li a, .servicelink').bind('click',function(event){
 			var $anchor = $(this);
-			
+			if ($anchor.attr('data-toggle') === 'modal') {
+				return;
+			}
+			var href = $anchor.attr('href');
+			if (!href || href === '#') {
+				return;
+			}
+			var $target = $(href);
+			if (!$target.length || !$target.offset()) {
+				return;
+			}
+
 			$('html, body').stop().animate({
-				scrollTop: $($anchor.attr('href')).offset().top - 102
+				scrollTop: $target.offset().top - 102
 			}, 1500,'easeInOutExpo');
 			/*
 			if you don't want to use the easing effects:
@@ -81,14 +90,14 @@
 <script type="text/javascript">
 
 $(window).load(function(){
-  
-  
+
+
   var $container = $('.portfolioContainer'),
       $body = $('body'),
       colW = 375,
       columns = null;
 
-  
+
   $container.isotope({
     // disable window resizing
     resizable: true,
@@ -96,7 +105,7 @@ $(window).load(function(){
       columnWidth: colW
     }
   });
-  
+
   $(window).smartresize(function(){
     // check if columns has changed
     var currentColumns = Math.floor( ( $body.width() -30 ) / colW );
@@ -107,20 +116,20 @@ $(window).load(function(){
       $container.width( columns * colW )
         .isotope('reLayout');
     }
-    
+
   }).smartresize(); // trigger resize to set container width
   $('.portfolioFilter a').click(function(){
         $('.portfolioFilter .current').removeClass('current');
         $(this).addClass('current');
- 
+
         var selector = $(this).attr('data-filter');
         $container.isotope({
-			
+
             filter: selector,
          });
          return false;
     });
-  
+
 });
 
 </script>

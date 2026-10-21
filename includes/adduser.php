@@ -1,9 +1,21 @@
-<?php require "dbconnect.php"?>
-<?php 
+<?php
 
-    $sql = "INSERT INTO users (firstname,lastname,email,homeaddress,homephone,cellphone) VALUES ('".$_POST["firstname"]."', '".$_POST["lastname"]."', '".$_POST["email"]."', '".$_POST["homeaddress"]."', '".$_POST["homephone"]."', '".$_POST["cellphone"]."')";
-    $conn->query($sql);
-    $conn->close();
-    header("location: ../index.php#users");
-    
-?>
+declare(strict_types=1);
+
+require_once __DIR__ . '/dbconnect.php';
+
+$fields = ['firstname', 'lastname', 'email', 'homeaddress', 'homephone', 'cellphone'];
+$input = [];
+foreach ($fields as $field) {
+    $input[$field] = trim((string) ($_POST[$field] ?? ''));
+}
+
+$posted = ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST';
+if (!$posted || $input['firstname'] === '' || $input['lastname'] === '') {
+    header('Location: ../index.php?user=missing#users');
+    exit;
+}
+
+spartan_insert_user($conn, $input);
+header('Location: ../index.php#users');
+exit;

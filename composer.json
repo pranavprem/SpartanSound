@@ -1,0 +1,19 @@
+{
+    "name": "pranavprem/spartansound",
+    "description": "SpartanSound, a Spring 2017 CMPE 272 class site for a fictional San Jose State music shop.",
+    "type": "project",
+    "require": {
+        "php": ">=8.3"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.13"
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "test": "php tests/run.php",
+        "test:integration": "php tests/integration.php"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}

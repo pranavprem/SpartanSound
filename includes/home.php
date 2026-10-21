@@ -1,7 +1,7 @@
 <header class="header" id="header">
 	       <div class="container">
     	       <figure class="logo animated fadeInDown delay-07s">
-        	       <a href="#"><img src="img/SpartanMusicWhiteLogo.png" alt=""></a>	
+        	       <a href="#"><img src="img/SpartanMusicWhiteLogo.png" alt="SpartanSound"></a>	
                 </figure>	
                 <h1 class="animated fadeInDown delay-07s">SpartanSound</h1>
                 <ul class="we-create animated fadeInUp delay-1s">
@@ -10,5 +10,10 @@
                     <a class="link animated fadeInUp delay-1s servicelink" href="#about">Check us out!</a>
                     <a class="link animated fadeInUp delay-1s servicelink" href="#tops">Top Viewed</a>
                     <a class="link animated fadeInUp delay-1s servicelink" href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+                    <?php if (($_GET['login'] ?? '') === 'failed') { ?>
+                    <ul class="we-create animated fadeInUp delay-1s">
+                        <li>That username and password did not match.</li>
+                    </ul>
+                    <?php } ?>
             </div>
         </header>

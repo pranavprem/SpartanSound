@@ -1,61 +1,30 @@
 <section class="main-section alabaster" id="users">
 	<div class="container fullsize">
-               <table align = center>
+               <?php if (($_GET['user'] ?? '') === 'missing') { ?>
+               <p>A user needs a first name and a last name.</p>
+               <?php } ?>
+               <table align="center">
                    <tr>
-                       
+
                         <td class="tableheader"><strong>First Name</strong></td>
                         <td class="tableheader"><strong>Last Name</strong></td>
                         <td class="tableheader"><strong>Email</strong></td>
                         <td class="tableheader"><strong>Home Address</strong></td>
                         <td class="tableheader"><strong>Home Phone</strong></td>
                         <td class="tableheader"><strong>Cell Phone</strong></td>
-                        
+
                    </tr>
                     <?php
-                        if(isset($_POST["search"])){
-                            $sql = "SELECT * FROM users WHERE";
-                            if(isset($_POST["name"]) and $_POST["name"]!=""){
-                                $sql=$sql." firstname LIKE '%".$_POST["name"]."%' OR lastname LIKE '%".$_POST["name"]."%'";
-                            }
-                            else{
-                                $sql=$sql." firstname = '' OR lastname= ''";
-                            }
-                            if(isset($_POST["email"]) and $_POST["email"] != "" ){
-                                $sql=$sql."OR email LIKE '%".$_POST["email"]."%'";
-                            }
-                            if(isset($_POST["phone"]) and $_POST["phone"] != ""){
-                                $sql=$sql."OR homephone LIKE'%".$_POST["phone"]."%' OR cellphone LIKE '%".$_POST["phone"]."%';";
-                            }
-                            
-                            $result = $conn->query($sql);
-                            }
-                   
-                        else{
-                            $sql = "SELECT * FROM users";
-                            $result = $conn->query($sql);
+                        $searching = isset($_POST['search']);
+                        $rows = spartan_search_users($conn, $searching ? $_POST : []);
+                        if ($rows === []) {
+                            echo "<tr><td colspan='6'>No users matched that search.</td></tr>";
                         }
-                   
-                        
-                        while($row = $result -> fetch_assoc()){
+                        foreach ($rows as $row) {
                             echo "<tr>";
-                                echo "<td>";
-                                    echo $row["firstname"];
-                                echo "</td>";
-                                echo "<td>";
-                                    echo $row["lastname"];
-                                echo "</td>";
-                                echo "<td>";
-                                    echo $row["email"];
-                                echo "</td>";
-                                echo "<td>";
-                                    echo $row["homeaddress"];
-                                echo "</td>";
-                                echo "<td>";
-                                    echo $row["homephone"];
-                                echo "</td>";
-                                echo "<td>";
-                                    echo $row["cellphone"];
-                                echo "</td>";
+                            foreach (['firstname', 'lastname', 'email', 'homeaddress', 'homephone', 'cellphone'] as $column) {
+                                echo "<td>" . spartan_e((string) $row[$column]) . "</td>";
+                            }
                             echo "</tr>";
                         }
                     ?>

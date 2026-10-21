@@ -1,14 +1,18 @@
 <?php
-$servername = "localhost";
-$username = "spartanuser";
-$password = "wubalubadubdub";
-$dbname = "spartansound";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+declare(strict_types=1);
 
-// Check connection
-/*if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    } 
- echo "Connected successfully";*/
-?>
+require_once __DIR__ . '/lib.php';
+require_once __DIR__ . '/db.php';
+
+spartan_load_dotenv(spartan_root() . '/.env');
+
+try {
+    $conn = spartan_connect();
+} catch (RuntimeException $e) {
+    if (!headers_sent()) {
+        http_response_code(500);
+    }
+    echo '<p style="font-family: sans-serif; padding: 2rem;">' . spartan_e($e->getMessage()) . '</p>';
+    exit(1);
+}

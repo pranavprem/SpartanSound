@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="SpartanSound">
+    <description>PSR-12 for the maintained PHP. The 2017 templates are syntax-checked only.</description>
+    <arg name="colors"/>
+    <arg value="sp"/>
+    <file>includes/lib.php</file>
+    <file>includes/db.php</file>
+    <file>includes/dbconnect.php</file>
+    <file>router.php</file>
+    <file>tests</file>
+    <exclude-pattern>*/server.log</exclude-pattern>
+    <exclude-pattern>*/cookies.txt</exclude-pattern>
+    <rule ref="PSR12"/>
+</ruleset>

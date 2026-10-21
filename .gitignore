@@ -1,0 +1,12 @@
+.env
+vendor/
+.idea/
+.vscode/
+.DS_Store
+*.log
+.phpcs.cache
+.phpunit.result.cache
+tests/cookies.txt
+tests/server.log
+tests/tmp-credentials.txt
+tests/tmp.env

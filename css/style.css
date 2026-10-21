@@ -880,3 +880,20 @@ border: 2px solid #fff;
     font-weight: bold;
     font-style: bold;
 }
+
+
+/* Catalog tables. The lab pages print raw tables; give the cells room to read. */
+#users table,
+#tops table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 24px;
+}
+#users td,
+#tops td,
+#tops th {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e4e4e4;
+    text-align: left;
+    vertical-align: top;
+}

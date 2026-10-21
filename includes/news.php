@@ -8,7 +8,7 @@
             </div>
             <br/>
             <div>
-                Spartan Jam-buddies clam SpartanJam is "best app ever made. Period."
+                Spartan Jam-buddies claim SpartanJam is "best app ever made. Period."
             </div>
     </div>
 </section>

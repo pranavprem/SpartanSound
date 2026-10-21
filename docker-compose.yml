@@ -1,0 +1,37 @@
+services:
+  db:
+    image: mariadb:11.4
+    environment:
+      MARIADB_DATABASE: spartansound
+      MARIADB_USER: spartanuser
+      MARIADB_PASSWORD: ${DB_PASSWORD:-devpassword}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-devroot}
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_USER: spartanuser
+      DB_PASSWORD: ${DB_PASSWORD:-devpassword}
+      DB_NAME: spartansound
+      DB_CONNECT_RETRIES: "20"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  dbdata:
